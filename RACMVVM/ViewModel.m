@@ -24,43 +24,47 @@
     // how many seconds between updates?
     float rhythm = 2.0f;
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * rhythm * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [self executeBlock:^{
         self.beatle = @"George";
         // note: no effect here, must use self.beatle
         _beatle = @"GEORGE";
-    });
+    } afterDelay:1.0f * rhythm];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * rhythm * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [self executeBlock:^{
         self.beatle = @"Fred";
         // note: no effect here, must use self.beatle
         _beatle = @"FRED";
-    });
+    } afterDelay:2.0f * rhythm];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * rhythm * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [self executeBlock:^{
         self.beatle = @"Paul";
         // note: no effect here, must use self.beatle
         _beatle = @"PAUL";
-    });
+    } afterDelay:3.0f * rhythm];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0f * rhythm * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [self executeBlock:^{
         self.beatle = @"Ringo";
         // note: no effect here, must use self.beatle
         _beatle = @"RINGO";
-    });
+    } afterDelay:4.0f * rhythm];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * rhythm * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [self executeBlock:^{
         self.beatle = @"John";
         // note: no effect here, must use self.beatle
         _beatle = @"JOHN";
-    });
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6.0f * rhythm * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    } afterDelay:5.0f * rhythm];
+    
+    [self executeBlock:^{
         self.beatle = @"Allan the Hedgehog";
         // note: no effect here, must use self.beatle
         _beatle = @"ALLAN THE HEDGEHOG";
-
+        
         // after final update, re-run this method
         [self synthesizeDataOverInterval];
-    });
+    } afterDelay:6.0f * rhythm];
+}
+
+- (void)executeBlock:(void (^)(void))block afterDelay:(float)seconds {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(),block);
 }
 @end
