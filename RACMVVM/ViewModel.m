@@ -27,37 +27,37 @@
     [self executeBlock:^{
         self.beatle = @"George";
         // note: no effect here, must use self.beatle
-        _beatle = @"GEORGE";
+        _beatle = [self.beatle uppercaseString];
     } afterDelay:1.0f * rhythm];
     
     [self executeBlock:^{
         self.beatle = @"Fred";
         // note: no effect here, must use self.beatle
-        _beatle = @"FRED";
+        _beatle = [self.beatle uppercaseString];
     } afterDelay:2.0f * rhythm];
     
     [self executeBlock:^{
         self.beatle = @"Paul";
         // note: no effect here, must use self.beatle
-        _beatle = @"PAUL";
+        _beatle = [self.beatle uppercaseString];
     } afterDelay:3.0f * rhythm];
     
     [self executeBlock:^{
         self.beatle = @"Ringo";
         // note: no effect here, must use self.beatle
-        _beatle = @"RINGO";
+        _beatle = [self.beatle uppercaseString];
     } afterDelay:4.0f * rhythm];
     
     [self executeBlock:^{
         self.beatle = @"John";
         // note: no effect here, must use self.beatle
-        _beatle = @"JOHN";
+        _beatle = [self.beatle uppercaseString];
     } afterDelay:5.0f * rhythm];
     
     [self executeBlock:^{
         self.beatle = @"Allan the Hedgehog";
         // note: no effect here, must use self.beatle
-        _beatle = @"ALLAN THE HEDGEHOG";
+        _beatle = [self.beatle uppercaseString];
         
         // after final update, re-run this method
         [self synthesizeDataOverInterval];
