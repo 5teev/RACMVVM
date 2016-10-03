@@ -8,14 +8,19 @@
 
 #import "ViewModel.h"
 
-@implementation ViewModel
-- (instancetype)init {
-    self = [super init];
+@interface ViewModel ()
+@property (nonatomic) NSArray *testArray;
+@end
 
-    self.beatle = @"NONE";
-    // simulate updates to the beatle value
-    [self synthesizeDataOverInterval];
-    
+@implementation ViewModel
+- (instancetype)initWithArrayToTest:(NSArray <NSString *>*)testArray {
+    self = [super init];
+    if( self ) {
+        _testArray = testArray;
+        self.beatle = @"NONE";
+        // simulate updates to the beatle value
+        [self synthesizeDataOverInterval];
+    }
     return self;
 }
 
@@ -23,45 +28,23 @@
 
     // how many seconds between updates?
     float rhythm = 2.0f;
+    float delayFactor = 0.0f;
+    
+    for (NSString *name in self.testArray) {
+        delayFactor += 1.0f;
+        [self executeBlock:^{
+            self.beatle = name;
+            // note: no effect here, must use self.beatle
+            _beatle = [self.beatle uppercaseString];
 
-    [self executeBlock:^{
-        self.beatle = @"George";
-        // note: no effect here, must use self.beatle
-        _beatle = [self.beatle uppercaseString];
-    } afterDelay:1.0f * rhythm];
-    
-    [self executeBlock:^{
-        self.beatle = @"Fred";
-        // note: no effect here, must use self.beatle
-        _beatle = [self.beatle uppercaseString];
-    } afterDelay:2.0f * rhythm];
-    
-    [self executeBlock:^{
-        self.beatle = @"Paul";
-        // note: no effect here, must use self.beatle
-        _beatle = [self.beatle uppercaseString];
-    } afterDelay:3.0f * rhythm];
-    
-    [self executeBlock:^{
-        self.beatle = @"Ringo";
-        // note: no effect here, must use self.beatle
-        _beatle = [self.beatle uppercaseString];
-    } afterDelay:4.0f * rhythm];
-    
-    [self executeBlock:^{
-        self.beatle = @"John";
-        // note: no effect here, must use self.beatle
-        _beatle = [self.beatle uppercaseString];
-    } afterDelay:5.0f * rhythm];
-    
-    [self executeBlock:^{
-        self.beatle = @"Allan the Hedgehog";
-        // note: no effect here, must use self.beatle
-        _beatle = [self.beatle uppercaseString];
-        
-        // after final update, re-run this method
-        [self synthesizeDataOverInterval];
-    } afterDelay:6.0f * rhythm];
+            // delayFactor increments by 1 for each item to max length of array
+            if ( delayFactor == self.testArray.count ) {
+                // final update for this iteration, now re-run method
+                [self synthesizeDataOverInterval];
+            }
+        } afterDelay:delayFactor * rhythm];
+    }
+
 }
 
 - (void)executeBlock:(void (^)(void))block afterDelay:(float)seconds {

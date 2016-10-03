@@ -13,6 +13,11 @@
  */
 @interface ViewModel : NSObject
 
+- (instancetype)initWithArrayToTest:(NSArray <NSString *>*)testArray NS_DESIGNATED_INITIALIZER;
+
+// disallow default initializer
+- (instancetype)init NS_UNAVAILABLE;
+
 @property (nonatomic, copy) NSString *beatle;
 
 @end

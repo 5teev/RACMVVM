@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.viewModel = [[ViewModel alloc] init];
+    self.viewModel = [[ViewModel alloc] initWithArrayToTest:@[@"George",@"Fred",@"Paul",@"Ringo",@"Rupert",@"John",@"Allan the Hedgehog"]];
 
     [self setUpRAC];
 }
